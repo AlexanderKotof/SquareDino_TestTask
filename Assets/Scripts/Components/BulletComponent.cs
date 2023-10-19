@@ -5,33 +5,29 @@ public class BulletComponent : MonoBehaviour
 {
     public new Rigidbody rigidbody;
 
-    public int damage = 1;
-
-    public float speed = 5;
-
     public float lifeTime = 5f;
 
-    public Vector3 Direction => _direction;
+    public Vector3 Direction => _velocity.normalized;
 
     private float _spawnTime;
-    private Vector3 _direction;
+    private Vector3 _velocity;
 
     public static event Action<EnemyComponent, BulletComponent> HitEnemy;
 
-    public void Shoot(Vector3 position, Vector3 direction)
+    public void Shoot(Vector3 position, Vector3 velocity, int damage)
     {
         gameObject.SetActive(true);
         _spawnTime = Time.realtimeSinceStartup;
 
-        _direction = direction.normalized;
+        _velocity = velocity;
 
         transform.position = position;
-        transform.rotation = Quaternion.LookRotation(_direction);
+        transform.rotation = Quaternion.LookRotation(_velocity);
     }
 
     private void Update()
     {
-        rigidbody.velocity = speed * _direction;
+        rigidbody.velocity = _velocity;
 
         if (_spawnTime + lifeTime < Time.realtimeSinceStartup)
             Despawn();

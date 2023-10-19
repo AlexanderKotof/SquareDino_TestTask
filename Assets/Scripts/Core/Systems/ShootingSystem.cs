@@ -25,7 +25,7 @@ public class ShootingSystem : IDisposable
 
     private void OnHitEnemy(EnemyComponent enemy, BulletComponent bullet)
     {
-        enemy.TakeDamage(bullet.damage);
+        enemy.TakeDamage(settings.BulletDamage);
 
         if (enemy.IsDied)
         {
@@ -36,6 +36,6 @@ public class ShootingSystem : IDisposable
 
     public void SpawnBullet(Vector3 position, Vector3 direction)
     {
-        _bulletPool.Pool().Shoot(position, direction);
+        _bulletPool.Pool().Shoot(position, direction.normalized * settings.BulletSpeeed, settings.BulletDamage);
     }
 }

@@ -9,9 +9,7 @@ public class BootstrapLifetimeScope : LifetimeScope
     {
         builder.RegisterInstance(settings).AsSelf();
 
-        builder.RegisterEntryPoint<GameManager>(Lifetime.Singleton).AsSelf();
-
-
+        builder.RegisterEntryPoint<GameManager>().AsSelf();
     }
 
 }

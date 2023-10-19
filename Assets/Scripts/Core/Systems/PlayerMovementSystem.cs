@@ -2,7 +2,7 @@
 using System.Collections;
 using VContainer.Unity;
 
-public class PlayerMovementSystem :IInitializable, IDisposable
+public class PlayerMovementSystem : IInitializable, IDisposable
 {
     private PlayerComponent _player;
     private int _currentWayPointIndex = 0;
@@ -33,11 +33,11 @@ public class PlayerMovementSystem :IInitializable, IDisposable
     private void OnGameStarted()
     {
         _currentWayPointIndex = 0;
-        MoveToNext();
+
+        MoveToNextWaypoint();
     }
 
-
-    private void MoveToNext()
+    private void MoveToNextWaypoint()
     {
         _currentWayPointIndex++;
 
@@ -92,7 +92,7 @@ public class PlayerMovementSystem :IInitializable, IDisposable
             yield return null;
         }
 
-        MoveToNext();
+        MoveToNextWaypoint();
     }
 
     private void OnWayPointReached(WayPointComponent wayPoint)
@@ -103,7 +103,7 @@ public class PlayerMovementSystem :IInitializable, IDisposable
             return;
         }
 
-        MoveToNext();
+        MoveToNextWaypoint();
     }
 
 }

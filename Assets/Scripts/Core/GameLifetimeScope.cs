@@ -5,24 +5,17 @@ using VContainer.Unity;
 
 public class GameLifetimeScope : LifetimeScope
 {
-
     public SceneContext sceneContext;
 
     protected override void Configure(IContainerBuilder builder)
     {
-        if (parentReference.Object != null)
-        {
-            Debug.Log("Parent ref " + this.parentReference.Object.name, this.parentReference.Object);
-        }
-
-        builder.RegisterInstance<SceneContext>(sceneContext);
+        builder.RegisterInstance(sceneContext);
 
         builder.RegisterEntryPoint<PlayerSystem>().AsSelf();
         builder.RegisterEntryPoint<ShootingSystem>().AsSelf();
         builder.RegisterEntryPoint<PlayerMovementSystem>().AsSelf();
 
         builder.RegisterEntryPoint<ShootController>().AsSelf();
-
     }
 }
 

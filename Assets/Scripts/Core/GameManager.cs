@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using UI.Screens;
 using UnityEngine.SceneManagement;
-using VContainer;
 using VContainer.Unity;
 
 public class GameManager : IStartable
@@ -37,8 +36,6 @@ public class GameManager : IStartable
 
     IEnumerator LoadSceneAsync()
     {
-        ScreenSystem.ScreensManager.ShowScreen<LoadingScreen>();
-
         // LifetimeScope generated in this block will be parented by `this.lifetimeScope`
         using (LifetimeScope.EnqueueParent(_scope))
         {
@@ -50,15 +47,11 @@ public class GameManager : IStartable
             }
         }
 
-        ScreenSystem.ScreensManager.HideScreen<LoadingScreen>();
-
         ScreensManager.ShowScreen<StartScreen>().SetCallback(StartGame);
     }
 
     private IEnumerator ReloadSceneAsync()
     {
-        ScreenSystem.ScreensManager.ShowScreen<LoadingScreen>();
-
         var loading = SceneManager.UnloadSceneAsync("Game");
         while (!loading.isDone)
         {
