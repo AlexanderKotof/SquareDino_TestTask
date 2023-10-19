@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class ShootingSystem : IDisposable
 {
-    private const float _forceMultiplier = 100;
+
     private const int _prespawnCount = 5;
+    private readonly GameSettings settings;
 
     private ObjectPool<BulletComponent> _bulletPool;
 
@@ -13,6 +14,7 @@ public class ShootingSystem : IDisposable
         _bulletPool = new ObjectPool<BulletComponent>(settings.BulletPrefab, null, _prespawnCount);
 
         BulletComponent.HitEnemy += OnHitEnemy;
+        this.settings = settings;
     }
     public void Dispose()
     {
@@ -27,7 +29,7 @@ public class ShootingSystem : IDisposable
 
         if (enemy.IsDied)
         {
-            var force = (bullet.Direction + Vector3.up).normalized * _forceMultiplier;
+            var force = (bullet.Direction + Vector3.up).normalized * settings.RagdollForceMultiplier;
             enemy.TriggerRagdoll(force, bullet.transform.position);
         }
     }

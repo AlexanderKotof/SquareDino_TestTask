@@ -17,6 +17,12 @@ public class PlayerComponent : MonoBehaviour
         agent.SetDestination(destination);
     }
 
+    public void Shoot(Vector3 direction)
+    {
+        animator.SetTrigger("Shoot");
+       // transform.rotation = Quaternion.LookRotation(direction);
+    }
+
     private void Update()
     {
         bool isMoving = agent.velocity.sqrMagnitude > _movingVelocityThreashold;

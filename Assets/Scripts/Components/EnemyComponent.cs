@@ -38,9 +38,14 @@ public class EnemyComponent : MonoBehaviour
     {
         SwitchRagdoll(true);
 
-        var hitRigidbody = ragdollRigidbodies.OrderBy((body) => Vector3.SqrMagnitude(body.position - hitPoint)).First();
+        foreach (var rb in ragdollRigidbodies)
+        {
+            var hitRigidbodyDistance = Vector3.SqrMagnitude(rb.position - hitPoint);
 
-        hitRigidbody.AddForceAtPosition(force, hitPoint);
+            force = Vector3.ClampMagnitude(force / (1 + hitRigidbodyDistance), 1000);
+
+            rb.AddForceAtPosition(force, hitPoint);
+        }
     }
 
     private void SwitchRagdoll(bool enableRagdoll)
