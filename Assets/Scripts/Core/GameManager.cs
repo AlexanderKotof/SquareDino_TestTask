@@ -7,9 +7,10 @@ using VContainer.Unity;
 
 public class GameManager : IStartable
 {
+    private const string _gameSceneName = "Game";
+
     private LifetimeScope _scope;
 
-    public event Action GameSceneLoaded;
     public event Action GameStarted;
 
     public GameManager(LifetimeScope scope)
@@ -40,7 +41,7 @@ public class GameManager : IStartable
         using (LifetimeScope.EnqueueParent(_scope))
         {
             // If this scene has a LifetimeScope, its parent will be `parent`.
-            var loading = SceneManager.LoadSceneAsync("Game", LoadSceneMode.Additive);
+            var loading = SceneManager.LoadSceneAsync(_gameSceneName, LoadSceneMode.Additive);
             while (!loading.isDone)
             {
                 yield return null;
@@ -52,7 +53,7 @@ public class GameManager : IStartable
 
     private IEnumerator ReloadSceneAsync()
     {
-        var loading = SceneManager.UnloadSceneAsync("Game");
+        var loading = SceneManager.UnloadSceneAsync(_gameSceneName);
         while (!loading.isDone)
         {
             yield return null;
@@ -64,9 +65,7 @@ public class GameManager : IStartable
     private void StartGame()
     {
         ScreensManager.HideScreen<StartScreen>();
-
-        ScreensManager.ShowScreen<GameScreen>().SetController();
-
+        ScreensManager.ShowScreen<GameScreen>();
         GameStarted?.Invoke();
     }
 
