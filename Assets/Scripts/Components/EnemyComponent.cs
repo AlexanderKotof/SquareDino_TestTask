@@ -8,11 +8,15 @@ public class EnemyComponent : MonoBehaviour
 
     public bool IsDied => health <= 0;
 
+    public Collider hitCollider;
+
     public HealthbarComponent healthbar;
 
     public Animator animator;
 
     public Rigidbody[] ragdollRigidbodies;
+
+    private const float _dynamicTime = 3f; 
 
     private void Start()
     {
@@ -21,7 +25,7 @@ public class EnemyComponent : MonoBehaviour
         SwitchRagdoll(false);
     }
 
-    public void Initialize(PlayerComponent player)
+    public void ShowHealthbar(PlayerComponent player)
     {
         healthbar.Initialize(player.playerCamera);
         healthbar.UpdateHealth(startHealth, health);
@@ -46,6 +50,16 @@ public class EnemyComponent : MonoBehaviour
 
             rb.AddForceAtPosition(force, hitPoint);
         }
+
+        Invoke(nameof(SetKinematic), _dynamicTime);
+    }
+
+    public void SetKinematic()
+    {
+        foreach (var rigidbody in ragdollRigidbodies)
+        {
+            rigidbody.isKinematic = true;
+        }
     }
 
     private void SwitchRagdoll(bool enableRagdoll)
@@ -56,5 +70,7 @@ public class EnemyComponent : MonoBehaviour
         {
             rigidbody.isKinematic = !enableRagdoll;
         }
+
+        hitCollider.enabled = !enableRagdoll;
     }
 }
