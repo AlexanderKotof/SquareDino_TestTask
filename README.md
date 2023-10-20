@@ -13,6 +13,9 @@ The task was to develop a simple game with movement and shooting mechanics accor
 7. Game UI, including enemies UI and screens
 8. Ragdoll physics for enemies
 
+## Performance Time
+Realization took 20 hours
+
 ## Note
 Start from Boot scene
 
