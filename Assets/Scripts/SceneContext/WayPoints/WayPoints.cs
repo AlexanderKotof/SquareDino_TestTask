@@ -9,6 +9,11 @@ namespace TestTask.Context
     {
         public WayPointComponent[] points;
 
+        private void OnValidate()
+        {
+            points = GetComponentsInChildren<WayPointComponent>();
+        }
+
 
         private void OnDrawGizmosSelected()
         {
