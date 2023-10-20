@@ -13,7 +13,7 @@ namespace UI.Screens
 
         private void OnEnable()
         {
-            shootingComponent.Shoot += PlayerInputService.SetShootInput;
+            shootingComponent.Shoot += PlayerInputService.Instance.SetShootInput;
         }
 
         protected override void OnHide()

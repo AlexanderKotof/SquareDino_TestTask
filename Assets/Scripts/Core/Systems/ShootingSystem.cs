@@ -14,28 +14,29 @@ namespace TestTask.GameSystems
 
         private readonly PlayerSpawnSystem _playerSystem;
         private readonly GameSettings _settings;
-
+        private readonly IPlayerInputService input;
         private ObjectPool<BulletComponent> _bulletPool;
         private bool _isActive;
 
         public event Action OnEnemyDied;
 
-        public ShootingSystem(PlayerSpawnSystem playerSystem, GameSettings settings)
+        public ShootingSystem(PlayerSpawnSystem playerSystem, GameSettings settings, IPlayerInputService input)
         {
             _bulletPool = new ObjectPool<BulletComponent>(settings.BulletPrefab, null, _prespawnCount);
 
             _playerSystem = playerSystem;
             _settings = settings;
+            this.input = input;
         }
         public void Initialize()
         {
             BulletComponent.HitEnemy += OnHitEnemy;
-            PlayerInputService.ShootInput += Shoot;
+            input.ShootInput += Shoot;
         }
         public void Dispose()
         {
             BulletComponent.HitEnemy -= OnHitEnemy;
-            PlayerInputService.ShootInput -= Shoot;
+            input.ShootInput -= Shoot;
             _bulletPool.Dispose();
         }
 
