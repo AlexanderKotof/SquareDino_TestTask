@@ -1,5 +1,6 @@
 using TestTask.Context;
 using TestTask.GameSystems;
+using TestTask.Input;
 using VContainer;
 using VContainer.Unity;
 
@@ -13,9 +14,16 @@ namespace TestTask.Scopes
         {
             SetupScene(builder);
 
+            SetupInput(builder);
+
             SetupPlayer(builder);
 
             SetupEnemies(builder);
+        }
+
+        private static void SetupInput(IContainerBuilder builder)
+        {
+            builder.Register<IPlayerInputService, PlayerInputService>(Lifetime.Singleton);
         }
 
         private void SetupScene(IContainerBuilder builder)

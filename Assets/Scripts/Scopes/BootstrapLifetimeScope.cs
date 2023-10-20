@@ -14,8 +14,6 @@ namespace TestTask.Scopes
             builder.RegisterInstance(settings).AsSelf();
 
             builder.RegisterEntryPoint<GameManager>().AsSelf();
-
-            builder.Register<IPlayerInputService, PlayerInputService>(Lifetime.Singleton);
         }
     }
 }
