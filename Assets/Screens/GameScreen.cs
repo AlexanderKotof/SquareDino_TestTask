@@ -9,7 +9,7 @@ namespace UI.Screens
     {
         public ShootingInputComponent shootingComponent;
 
-        public void SetController()
+        private void OnEnable()
         {
             shootingComponent.Shoot += PlayerInputService.SetShootInput;
         }
