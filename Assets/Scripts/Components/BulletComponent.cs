@@ -25,7 +25,7 @@ public class BulletComponent : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(_velocity);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         rigidbody.velocity = _velocity;
 
