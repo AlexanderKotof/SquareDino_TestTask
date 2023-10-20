@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 6575336586834449305}
   - component: {fileID: 3016732979897630511}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: EnemyBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 2895850767522514623}
   m_LocalRotation: {x: 0, y: 0.011833021, z: 0, w: 0.99993}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3546, y: 1.3546, z: 1.3546}
   m_Children:
   - {fileID: 2899961109380165938}
   - {fileID: 7638474856637085584}
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080d80b6ef1446d43b83cf2557e8dabc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startHealth: 2
+  startHealth: 5
   hitCollider: {fileID: 3016732979897630511}
   healthbar: {fileID: 6350628606769993003}
   animator: {fileID: 2982160429307236380}
@@ -767,19 +767,11 @@ PrefabInstance:
     - target: {fileID: 23697067328211260, guid: f11fc98cf1e8d5547a9b2ec85cc9c664, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f23f0e04542f3c6428357a9837ce04f6, type: 2}
+      objectReference: {fileID: 2100000, guid: 38ceaec77abec28428c32e6beb4add91, type: 2}
     - target: {fileID: 95389170962898660, guid: f11fc98cf1e8d5547a9b2ec85cc9c664, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 72f4800db14db884799e05a2d2a1208e, type: 2}
-    - target: {fileID: 137166910513705172, guid: f11fc98cf1e8d5547a9b2ec85cc9c664, type: 3}
-      propertyPath: m_UpdateWhenOffscreen
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 137579981741326652, guid: f11fc98cf1e8d5547a9b2ec85cc9c664, type: 3}
-      propertyPath: m_DynamicOccludee
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 137579981741326652, guid: f11fc98cf1e8d5547a9b2ec85cc9c664, type: 3}
       propertyPath: m_UpdateWhenOffscreen
       value: 1
@@ -787,7 +779,7 @@ PrefabInstance:
     - target: {fileID: 137579981741326652, guid: f11fc98cf1e8d5547a9b2ec85cc9c664, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f23f0e04542f3c6428357a9837ce04f6, type: 2}
+      objectReference: {fileID: 2100000, guid: 38ceaec77abec28428c32e6beb4add91, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f11fc98cf1e8d5547a9b2ec85cc9c664, type: 3}
 --- !u!1 &2897152881341148910 stripped
@@ -897,7 +889,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.33947402, y: -0.0014491617, z: -0.0014363006}
+  m_ConnectedAnchor: {x: -0.3394739, y: -0.001449021, z: -0.0014363248}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -973,7 +965,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.041157745, y: -0.026920715, z: -0.098967046}
+  m_ConnectedAnchor: {x: 0.041157745, y: -0.026920713, z: -0.09896706}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -1124,7 +1116,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: -1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.23371536, y: -0.007857084, z: -0.190989}
+  m_ConnectedAnchor: {x: -0.23371536, y: -0.007857084, z: -0.19098897}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -1200,7 +1192,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 0, z: 1}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.23371804, y: -0.0078566745, z: 0.19098924}
+  m_ConnectedAnchor: {x: -0.23371804, y: -0.0078566745, z: 0.19098923}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 7988091723649013120, guid: 6beeef70b0eedcf4eb6e5e8d221cc7c7, type: 3}
   _bulletPrefab: {fileID: 4407171589451494307, guid: 88af92e013c32d6419d93461057bada0, type: 3}
-  _shootingDistance: 7
+  _shootingDistance: 9
   _bulletSpeed: 8
   _bulletDamage: 1
   _ragdollForceMultiplier: 500
