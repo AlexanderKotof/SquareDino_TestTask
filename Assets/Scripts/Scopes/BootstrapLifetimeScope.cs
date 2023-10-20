@@ -1,15 +1,19 @@
-﻿using VContainer;
+﻿using TestTask.Core;
+using VContainer;
 using VContainer.Unity;
 
-public class BootstrapLifetimeScope : LifetimeScope
+namespace TestTask.Scopes
 {
-    public GameSettings settings;
-
-    protected override void Configure(IContainerBuilder builder)
+    public class BootstrapLifetimeScope : LifetimeScope
     {
-        builder.RegisterInstance(settings).AsSelf();
+        public GameSettings settings;
 
-        builder.RegisterEntryPoint<GameManager>().AsSelf();
+        protected override void Configure(IContainerBuilder builder)
+        {
+            builder.RegisterInstance(settings).AsSelf();
+
+            builder.RegisterEntryPoint<GameManager>().AsSelf();
+        }
+
     }
-
 }

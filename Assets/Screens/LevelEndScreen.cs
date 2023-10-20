@@ -2,7 +2,7 @@
 using System;
 using UnityEngine.UI;
 
-namespace UI.Screens
+namespace TestTask.UI.Screens
 {
     public class LevelEndScreen : BaseScreen
     {

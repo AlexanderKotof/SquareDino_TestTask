@@ -2,56 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool<T> : IDisposable
-    where T : Component
+namespace TestTask.Pooling
 {
-    private readonly List<T> _pool;
-    private T _prefab;
-    private Transform _parent;
-
-    public ObjectPool(T prefab, Transform parentTransform, int prespawnCount = 1)
+    public class ObjectPool<T> : IDisposable
+        where T : Component
     {
-        _prefab = prefab;
-        _parent = parentTransform;
+        private readonly List<T> _pool;
+        private T _prefab;
+        private Transform _parent;
 
-        _pool = new List<T>(prespawnCount);
-
-        for (int i = 0; i < prespawnCount; i++)
+        public ObjectPool(T prefab, Transform parentTransform, int prespawnCount = 1)
         {
-            Add();
+            _prefab = prefab;
+            _parent = parentTransform;
+
+            _pool = new List<T>(prespawnCount);
+
+            for (int i = 0; i < prespawnCount; i++)
+            {
+                Add();
+            }
         }
-    }
 
-    private T Add()
-    {
-        var obj = GameObject.Instantiate(_prefab, _parent);
-        obj.gameObject.SetActive(false);
-        _pool.Add(obj);
-        return obj;
-    }
-
-    public T Pool()
-    {
-        foreach (var obj in _pool)
+        private T Add()
         {
-            if (obj.gameObject.activeSelf)
-                continue;
-
+            var obj = UnityEngine.Object.Instantiate(_prefab, _parent);
+            obj.gameObject.SetActive(false);
+            _pool.Add(obj);
             return obj;
         }
 
-        return Add();
-    }
-
-    public void Dispose()
-    {
-        foreach (var obj in _pool)
+        public T Pool()
         {
-            GameObject.Destroy(obj);
+            foreach (var obj in _pool)
+            {
+                if (obj.gameObject.activeSelf)
+                    continue;
+
+                return obj;
+            }
+
+            return Add();
         }
 
-        _pool.Clear();
-        _parent = null;
-        _prefab = null;
+        public void Dispose()
+        {
+            foreach (var obj in _pool)
+            {
+                UnityEngine.Object.Destroy(obj);
+            }
+
+            _pool.Clear();
+            _parent = null;
+            _prefab = null;
+        }
     }
 }

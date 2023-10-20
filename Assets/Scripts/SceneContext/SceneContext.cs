@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using TestTask.Context.Components;
 using UnityEngine;
 
-public class SceneContext : MonoBehaviour
+namespace TestTask.Context
 {
-    public WayPoints wayPoints;
-    public SpawnPointComponent[] spawnPoints;
-
-    private void OnValidate()
+    public class SceneContext : MonoBehaviour
     {
-        spawnPoints = FindObjectsOfType<SpawnPointComponent>();
+        public WayPoints wayPoints;
+        public SpawnPointComponent[] spawnPoints;
+
+        private void OnValidate()
+        {
+            spawnPoints = FindObjectsOfType<SpawnPointComponent>();
+        }
     }
 }

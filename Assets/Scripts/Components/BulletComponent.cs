@@ -1,50 +1,53 @@
 ﻿using System;
 using UnityEngine;
 
-public class BulletComponent : MonoBehaviour
+namespace TestTask.Components
 {
-    public new Rigidbody rigidbody;
-
-    public float lifeTime = 5f;
-
-    public Vector3 Direction => _velocity.normalized;
-
-    private float _spawnTime;
-    private Vector3 _velocity;
-
-    public static event Action<EnemyComponent, BulletComponent> HitEnemy;
-
-    public void Shoot(Vector3 position, Vector3 velocity, int damage)
+    public class BulletComponent : MonoBehaviour
     {
-        gameObject.SetActive(true);
-        _spawnTime = Time.realtimeSinceStartup;
+        public new Rigidbody rigidbody;
 
-        _velocity = velocity;
+        public float lifeTime = 5f;
 
-        transform.position = position;
-        transform.rotation = Quaternion.LookRotation(_velocity);
-    }
+        public Vector3 Direction => _velocity.normalized;
 
-    private void FixedUpdate()
-    {
-        rigidbody.velocity = _velocity;
+        private float _spawnTime;
+        private Vector3 _velocity;
 
-        if (_spawnTime + lifeTime < Time.realtimeSinceStartup)
-            Despawn();
-    }
+        public static event Action<EnemyComponent, BulletComponent> HitEnemy;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent<EnemyComponent>(out var enemyComponent))
+        public void Shoot(Vector3 position, Vector3 velocity, int damage)
         {
-            HitEnemy?.Invoke(enemyComponent, this);
+            gameObject.SetActive(true);
+            _spawnTime = Time.realtimeSinceStartup;
+
+            _velocity = velocity;
+
+            transform.position = position;
+            transform.rotation = Quaternion.LookRotation(_velocity);
         }
 
-        Despawn();
-    }
+        private void FixedUpdate()
+        {
+            rigidbody.velocity = _velocity;
 
-    private void Despawn()
-    {
-        gameObject.SetActive(false);
+            if (_spawnTime + lifeTime < Time.realtimeSinceStartup)
+                Despawn();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent<EnemyComponent>(out var enemyComponent))
+            {
+                HitEnemy?.Invoke(enemyComponent, this);
+            }
+
+            Despawn();
+        }
+
+        private void Despawn()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

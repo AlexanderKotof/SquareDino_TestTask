@@ -1,31 +1,36 @@
 ﻿using System;
 using System.Collections;
+using TestTask.Components;
+using TestTask.Context.Components;
 
-public class PlayerMovementSystem
+namespace TestTask.GameSystems
 {
-    private PlayerComponent _player;
-
-    private const float _distanceThreashold = 0.1f;
-
-    public PlayerMovementSystem(PlayerSpawnSystem playerSystem)
+    public class PlayerMovementSystem
     {
-        _player = playerSystem.Player;
-    }
+        private PlayerComponent _player;
 
-    public void MoveToWaypoint(WayPointComponent wayPointComponent, Action<WayPointComponent> onWaypointReach)
-    {
-        _player.StartCoroutine(MoveToWayPoint(wayPointComponent, onWaypointReach));
-    }
+        private const float _distanceThreashold = 0.1f;
 
-    private IEnumerator MoveToWayPoint(WayPointComponent wayPoint, Action<WayPointComponent> onWaypointReach)
-    {
-        _player.MoveToPosition(wayPoint.transform.position);
-
-        while ((_player.transform.position - wayPoint.transform.position).sqrMagnitude > _distanceThreashold * _distanceThreashold)
+        public PlayerMovementSystem(PlayerSpawnSystem playerSystem)
         {
-            yield return null;
+            _player = playerSystem.Player;
         }
 
-        onWaypointReach(wayPoint);
+        public void MoveToWaypoint(WayPointComponent wayPointComponent, Action<WayPointComponent> onWaypointReach)
+        {
+            _player.StartCoroutine(MoveToWayPoint(wayPointComponent, onWaypointReach));
+        }
+
+        private IEnumerator MoveToWayPoint(WayPointComponent wayPoint, Action<WayPointComponent> onWaypointReach)
+        {
+            _player.MoveToPosition(wayPoint.transform.position);
+
+            while ((_player.transform.position - wayPoint.transform.position).sqrMagnitude > _distanceThreashold * _distanceThreashold)
+            {
+                yield return null;
+            }
+
+            onWaypointReach(wayPoint);
+        }
     }
 }

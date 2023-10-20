@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WayPointComponent : MonoBehaviour
+namespace TestTask.Context.Components
 {
-    public SpawnPointComponent[] wayPointEnemySpawns;
+    public class WayPointComponent : MonoBehaviour
+    {
+        public SpawnPointComponent[] wayPointEnemySpawns;
+    }
 }

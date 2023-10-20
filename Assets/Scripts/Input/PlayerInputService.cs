@@ -1,12 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerInputService
+namespace TestTask.Input
 {
-    public static event Action<Vector3> ShootInput;
-
-    public static void SetShootInput(Vector3 point)
+    public class PlayerInputService
     {
-        ShootInput?.Invoke(point);
+        public static event Action<Vector3> ShootInput;
+
+        public static void SetShootInput(Vector3 point)
+        {
+            ShootInput?.Invoke(point);
+        }
     }
 }

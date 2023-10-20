@@ -1,5 +1,7 @@
 ﻿using ScreenSystem.Screens;
 using System;
+using TestTask.Input;
+using TestTask.UI.Components;
 using UnityEngine;
 using UnityEngine.UI;
 

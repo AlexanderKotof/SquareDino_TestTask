@@ -1,26 +1,26 @@
+using TestTask.Components;
+using TestTask.Context;
+using TestTask.Core;
 using UnityEngine;
 using VContainer.Unity;
 
-public class PlayerSpawnSystem : IStartable
+namespace TestTask.GameSystems
 {
-    public PlayerComponent playerPrefab;
-    public PlayerComponent Player { get; private set; }
-
-
-    public PlayerSpawnSystem(GameSettings settings, WayPoints wayPoints)
+    public class PlayerSpawnSystem 
     {
-        playerPrefab = settings.PlayerPrefab;
+        public PlayerComponent playerPrefab;
+        public PlayerComponent Player { get; private set; }
 
-        InstatiatePlayer(wayPoints.points[0].transform);
-    }
+        public PlayerSpawnSystem(GameSettings settings, WayPoints wayPoints)
+        {
+            playerPrefab = settings.PlayerPrefab;
 
-    public void Start()
-    {
-        
-    }
+            InstatiatePlayer(wayPoints.points[0].transform);
+        }
 
-    private void InstatiatePlayer(Transform firstWaypoint)
-    {
-        Player = GameObject.Instantiate(playerPrefab, firstWaypoint.position, firstWaypoint.rotation);
+        private void InstatiatePlayer(Transform firstWaypoint)
+        {
+            Player = Object.Instantiate(playerPrefab, firstWaypoint.position, firstWaypoint.rotation);
+        }
     }
 }

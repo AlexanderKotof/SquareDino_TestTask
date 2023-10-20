@@ -1,72 +1,76 @@
 ﻿using ScreenSystem;
 using System;
 using System.Collections;
+using TestTask.UI.Screens;
 using UI.Screens;
 using UnityEngine.SceneManagement;
 using VContainer.Unity;
 
-public class GameManager : IStartable
+namespace TestTask.Core
 {
-    private const string _gameSceneName = "Game";
-
-    private LifetimeScope _scope;
-
-    public event Action GameStarted;
-
-    public GameManager(LifetimeScope scope)
+    public class GameManager : IStartable
     {
-        _scope = scope;
-    }
+        private const string _gameSceneName = "Game";
 
-    public void Start()
-    {
-        _scope.StartCoroutine(LoadSceneAsync());
-    }
+        private LifetimeScope _scope;
 
-    public void LevelEnded()
-    {
-        ScreensManager.HideScreen<GameScreen>();
-        ScreensManager.ShowScreen<LevelEndScreen>().SetCallback(RestartGame);
-    }
+        public event Action GameStarted;
 
-    private void RestartGame()
-    {
-        ScreensManager.HideScreen<LevelEndScreen>();
-        _scope.StartCoroutine(ReloadSceneAsync());
-    }
-
-    IEnumerator LoadSceneAsync()
-    {
-        // LifetimeScope generated in this block will be parented by `this.lifetimeScope`
-        using (LifetimeScope.EnqueueParent(_scope))
+        public GameManager(LifetimeScope scope)
         {
-            // If this scene has a LifetimeScope, its parent will be `parent`.
-            var loading = SceneManager.LoadSceneAsync(_gameSceneName, LoadSceneMode.Additive);
+            _scope = scope;
+        }
+
+        public void Start()
+        {
+            _scope.StartCoroutine(LoadSceneAsync());
+        }
+
+        public void LevelEnded()
+        {
+            ScreensManager.HideScreen<GameScreen>();
+            ScreensManager.ShowScreen<LevelEndScreen>().SetCallback(RestartGame);
+        }
+
+        private void RestartGame()
+        {
+            ScreensManager.HideScreen<LevelEndScreen>();
+            _scope.StartCoroutine(ReloadSceneAsync());
+        }
+
+        IEnumerator LoadSceneAsync()
+        {
+            // LifetimeScope generated in this block will be parented by `this.lifetimeScope`
+            using (LifetimeScope.EnqueueParent(_scope))
+            {
+                // If this scene has a LifetimeScope, its parent will be `parent`.
+                var loading = SceneManager.LoadSceneAsync(_gameSceneName, LoadSceneMode.Additive);
+                while (!loading.isDone)
+                {
+                    yield return null;
+                }
+            }
+
+            ScreensManager.ShowScreen<StartScreen>().SetCallback(StartGame);
+        }
+
+        private IEnumerator ReloadSceneAsync()
+        {
+            var loading = SceneManager.UnloadSceneAsync(_gameSceneName);
             while (!loading.isDone)
             {
                 yield return null;
             }
+
+            yield return LoadSceneAsync();
         }
 
-        ScreensManager.ShowScreen<StartScreen>().SetCallback(StartGame);
-    }
-
-    private IEnumerator ReloadSceneAsync()
-    {
-        var loading = SceneManager.UnloadSceneAsync(_gameSceneName);
-        while (!loading.isDone)
+        private void StartGame()
         {
-            yield return null;
+            ScreensManager.HideScreen<StartScreen>();
+            ScreensManager.ShowScreen<GameScreen>();
+            GameStarted?.Invoke();
         }
 
-        yield return LoadSceneAsync();
     }
-
-    private void StartGame()
-    {
-        ScreensManager.HideScreen<StartScreen>();
-        ScreensManager.ShowScreen<GameScreen>();
-        GameStarted?.Invoke();
-    }
-
 }

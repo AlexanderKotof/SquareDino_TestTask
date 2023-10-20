@@ -2,7 +2,7 @@ using ScreenSystem.Screens;
 using System;
 using UnityEngine.UI;
 
-namespace UI.Screens
+namespace TestTask.UI.Screens
 {
     public class StartScreen : BaseScreen
     {
